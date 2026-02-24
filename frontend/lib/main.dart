@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'services/api_service.dart';
 import 'screens/login_screen.dart';
 import 'screens/homepage_screen.dart';
 
@@ -52,13 +53,28 @@ class _AuthWrapperState extends State<AuthWrapper> {
 
   Future<void> _checkAuthStatus() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('auth_token');
+      final token = await ApiService.getToken();
+      
+      if (token == null || token.isEmpty) {
+        setState(() {
+          _isAuthenticated = false;
+          _isLoading = false;
+        });
+        return;
+      }
+
+      // Verify token with backend
+      final result = await ApiService.getMe();
       
       setState(() {
-        _isAuthenticated = token != null && token.isNotEmpty;
+        _isAuthenticated = result['success'] == true;
         _isLoading = false;
       });
+      
+      // If token is invalid, remove it
+      if (result['success'] == false) {
+        await ApiService.removeToken();
+      }
     } catch (e) {
       setState(() {
         _isAuthenticated = false;

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../services/api_service.dart';
+import '../main.dart';
 
 class HomepageScreen extends StatefulWidget {
   const HomepageScreen({super.key});
@@ -9,6 +11,16 @@ class HomepageScreen extends StatefulWidget {
 
 class _HomepageScreenState extends State<HomepageScreen> {
   int _selectedIndex = 0;
+
+  Future<void> _handleLogout() async {
+    await ApiService.removeToken();
+    if (mounted) {
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => const AuthWrapper()),
+        (route) => false,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +61,20 @@ class _HomepageScreenState extends State<HomepageScreen> {
                       ),
                     ],
                   ),
-                  IconButton(
-                    icon: Icon(Icons.refresh, color: Colors.grey[700]),
-                    onPressed: () {
-                      // TODO: Refresh weather data
-                    },
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.refresh, color: Colors.grey[700]),
+                        onPressed: () {
+                          // TODO: Refresh weather data
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.logout, color: Colors.redAccent),
+                        onPressed: _handleLogout,
+                        tooltip: 'Đăng xuất',
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -207,7 +228,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                           ),
                           const SizedBox(height: 16),
                           SizedBox(
-                            height: 100,
+                            height: 110,
                             child: ListView(
                               scrollDirection: Axis.horizontal,
                               children: [
