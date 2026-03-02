@@ -111,4 +111,59 @@ class ApiService {
       return {'success': false, 'error': 'Lỗi kết nối: ${e.toString()}'};
     }
   }
+
+  // Weather API Methods
+  static const String weatherApiKey = ApiConfig.weatherApiKey;
+  static const String weatherBaseUrl = ApiConfig.weatherBaseUrl;
+
+  // Get current weather by coordinates
+  static Future<Map<String, dynamic>> getCurrentWeather(double lat, double lon) async {
+    try {
+      final response = await http.get(
+        Uri.parse('$weatherBaseUrl/weather?lat=$lat&lon=$lon&appid=$weatherApiKey&units=metric&lang=vi'),
+      );
+      
+      if (response.statusCode == 200) {
+        return {'success': true, 'data': jsonDecode(response.body)};
+      } else {
+        return {'success': false, 'error': 'Lỗi lấy dữ liệu thời tiết'};
+      }
+    } catch (e) {
+      return {'success': false, 'error': 'Lỗi kết nối thời tiết: ${e.toString()}'};
+    }
+  }
+
+  // Get 5 day / 3 hour forecast
+  static Future<Map<String, dynamic>> getForecast(double lat, double lon) async {
+    try {
+      final response = await http.get(
+        Uri.parse('$weatherBaseUrl/forecast?lat=$lat&lon=$lon&appid=$weatherApiKey&units=metric&lang=vi'),
+      );
+      
+      if (response.statusCode == 200) {
+        return {'success': true, 'data': jsonDecode(response.body)};
+      } else {
+        return {'success': false, 'error': 'Lỗi lấy dữ liệu dự báo'};
+      }
+    } catch (e) {
+      return {'success': false, 'error': 'Lỗi kết nối dự báo: ${e.toString()}'};
+    }
+  }
+
+  // Geocoding API - Search locations by name
+  static Future<Map<String, dynamic>> searchLocations(String query) async {
+    try {
+      final response = await http.get(
+        Uri.parse('https://api.openweathermap.org/geo/1.0/direct?q=$query&limit=5&appid=$weatherApiKey'),
+      );
+      
+      if (response.statusCode == 200) {
+        return {'success': true, 'data': jsonDecode(response.body)};
+      } else {
+        return {'success': false, 'error': 'Lỗi tìm kiếm địa điểm'};
+      }
+    } catch (e) {
+      return {'success': false, 'error': 'Lỗi kết nối tìm kiếm: ${e.toString()}'};
+    }
+  }
 }

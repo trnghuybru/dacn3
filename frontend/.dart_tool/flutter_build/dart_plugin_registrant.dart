@@ -6,10 +6,13 @@
 // @dart = 3.11
 
 import 'dart:io'; // flutter_ignore: dart_io_import.
+import 'package:geolocator_android/geolocator_android.dart' as geolocator_android;
 import 'package:shared_preferences_android/shared_preferences_android.dart' as shared_preferences_android;
+import 'package:geolocator_apple/geolocator_apple.dart' as geolocator_apple;
 import 'package:shared_preferences_foundation/shared_preferences_foundation.dart' as shared_preferences_foundation;
 import 'package:path_provider_linux/path_provider_linux.dart' as path_provider_linux;
 import 'package:shared_preferences_linux/shared_preferences_linux.dart' as shared_preferences_linux;
+import 'package:geolocator_apple/geolocator_apple.dart' as geolocator_apple;
 import 'package:shared_preferences_foundation/shared_preferences_foundation.dart' as shared_preferences_foundation;
 import 'package:path_provider_windows/path_provider_windows.dart' as path_provider_windows;
 import 'package:shared_preferences_windows/shared_preferences_windows.dart' as shared_preferences_windows;
@@ -21,6 +24,15 @@ class _PluginRegistrant {
   static void register() {
     if (Platform.isAndroid) {
       try {
+        geolocator_android.GeolocatorAndroid.registerWith();
+      } catch (err) {
+        print(
+          '`geolocator_android` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
+      try {
         shared_preferences_android.SharedPreferencesAndroid.registerWith();
       } catch (err) {
         print(
@@ -30,6 +42,15 @@ class _PluginRegistrant {
       }
 
     } else if (Platform.isIOS) {
+      try {
+        geolocator_apple.GeolocatorApple.registerWith();
+      } catch (err) {
+        print(
+          '`geolocator_apple` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
       try {
         shared_preferences_foundation.SharedPreferencesFoundation.registerWith();
       } catch (err) {
@@ -59,6 +80,15 @@ class _PluginRegistrant {
       }
 
     } else if (Platform.isMacOS) {
+      try {
+        geolocator_apple.GeolocatorApple.registerWith();
+      } catch (err) {
+        print(
+          '`geolocator_apple` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
       try {
         shared_preferences_foundation.SharedPreferencesFoundation.registerWith();
       } catch (err) {

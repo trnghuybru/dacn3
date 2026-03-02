@@ -47,6 +47,9 @@ dependencies:
   # Flutter toast for notifications
   fluttertoast: ^8.2.4
 
+  # Geolocator for GPS
+  geolocator: ^10.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
