@@ -1,0 +1,1 @@
+ E:\\VKU\\DACN3\\frontend\\.dart_tool\\flutter_build\\9cb87b7fca5666aed562cc2c667674e7\\native_assets.json: 
