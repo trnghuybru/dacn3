@@ -38,89 +38,113 @@ class _HomepageScreenState extends State<HomepageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[100],
-      body: SafeArea(
-        child: IndexedStack(index: _selectedIndex, children: _screens),
-      ),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.grey[100],
 
-      // Floating Action Button (SOS)
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // TODO: Handle SOS action
-        },
-        backgroundColor: Colors.red,
-        child: const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'SOS',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Icon(Icons.info, color: Colors.white, size: 16),
-          ],
-        ),
-      ),
+        appBar: AppHeader(
+          onLogout: _handleLogout,
 
-      // Bottom Navigation Bar
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
-              offset: const Offset(0, -2),
-            ),
-          ],
-        ),
-        child: BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          onTap: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
+          onRefresh: () {
+            // TODO: Refresh weather data
           },
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.grey,
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Trang chủ'),
-            BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Bản đồ'),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.article),
-              label: 'Tin tức',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.warning, color: Colors.red),
-              label: 'SOS',
-            ),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Cá nhân'),
-          ],
+        ),
+
+        body: IndexedStack(index: _selectedIndex, children: _screens),
+
+        // Floating Action Button (SOS)
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            // TODO: Handle SOS action
+          },
+
+          backgroundColor: Colors.red,
+
+          child: const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+
+            children: [
+              Text(
+                'SOS',
+
+                style: TextStyle(
+                  color: Colors.white,
+
+                  fontSize: 12,
+
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              Icon(Icons.info, color: Colors.white, size: 16),
+            ],
+          ),
+        ),
+
+        // Bottom Navigation Bar
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+
+                blurRadius: 10,
+
+                offset: const Offset(0, -2),
+              ),
+            ],
+          ),
+
+          child: BottomNavigationBar(
+            currentIndex: _selectedIndex,
+
+            onTap: (index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+
+            type: BottomNavigationBarType.fixed,
+
+            selectedItemColor: Colors.blue,
+
+            unselectedItemColor: Colors.grey,
+
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Trang chủ',
+              ),
+
+              BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Bản đồ'),
+
+              BottomNavigationBarItem(
+                icon: Icon(Icons.article),
+
+                label: 'Tin tức',
+              ),
+
+              BottomNavigationBarItem(
+                icon: Icon(Icons.warning, color: Colors.red),
+
+                label: 'SOS',
+              ),
+
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Cá nhân',
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _buildHomeContent() {
-    return Column(
-      children: [
-        // App Header
-        AppHeader(
-          onLogout: _handleLogout,
-          onRefresh: () {
-            // TODO: Refresh weather data
-          },
-        ),
-
-        // Main Content - Using DashboardScreen widget
-        const Expanded(child: DashboardScreen()),
-      ],
-    );
+    return const DashboardScreen();
   }
 
   Widget _buildMetric({
