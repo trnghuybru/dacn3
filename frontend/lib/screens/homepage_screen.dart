@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
 import '../main.dart';
+import '../widgets/app_header.dart';
 import 'map_screen.dart';
 import 'news_screen.dart';
 import 'sos_screen.dart';
@@ -40,12 +41,9 @@ class _HomepageScreenState extends State<HomepageScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: SafeArea(
-        child: IndexedStack(
-          index: _selectedIndex,
-          children: _screens,
-        ),
+        child: IndexedStack(index: _selectedIndex, children: _screens),
       ),
-      
+
       // Floating Action Button (SOS)
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -67,7 +65,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
           ],
         ),
       ),
-      
+
       // Bottom Navigation Bar
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -91,14 +89,8 @@ class _HomepageScreenState extends State<HomepageScreen> {
           selectedItemColor: Colors.blue,
           unselectedItemColor: Colors.grey,
           items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Trang chủ',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.map),
-              label: 'Bản đồ',
-            ),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Trang chủ'),
+            BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Bản đồ'),
             BottomNavigationBarItem(
               icon: Icon(Icons.article),
               label: 'Tin tức',
@@ -107,10 +99,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
               icon: Icon(Icons.warning, color: Colors.red),
               label: 'SOS',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Cá nhân',
-            ),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Cá nhân'),
           ],
         ),
       ),
@@ -121,60 +110,15 @@ class _HomepageScreenState extends State<HomepageScreen> {
     return Column(
       children: [
         // App Header
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          color: Colors.white,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.blue[50],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.waves, color: Colors.blue[700], size: 20),
-                        const SizedBox(width: 4),
-                        Text(
-                          'SÓNG CỨU HỘ',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue[700],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.refresh, color: Colors.grey[700]),
-                    onPressed: () {
-                      // TODO: Refresh weather data
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.logout, color: Colors.redAccent),
-                    onPressed: _handleLogout,
-                    tooltip: 'Đăng xuất',
-                  ),
-                ],
-              ),
-            ],
-          ),
+        AppHeader(
+          onLogout: _handleLogout,
+          onRefresh: () {
+            // TODO: Refresh weather data
+          },
         ),
-        
+
         // Main Content - Using DashboardScreen widget
-        const Expanded(
-          child: DashboardScreen(),
-        ),
+        const Expanded(child: DashboardScreen()),
       ],
     );
   }
@@ -199,10 +143,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
         const SizedBox(height: 2),
         Text(
           label,
-          style: const TextStyle(
-            color: Colors.white70,
-            fontSize: 11,
-          ),
+          style: const TextStyle(color: Colors.white70, fontSize: 11),
         ),
       ],
     );
@@ -294,18 +235,12 @@ class _HomepageScreenState extends State<HomepageScreen> {
         Expanded(
           child: Text(
             condition,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey[700],
-            ),
+            style: TextStyle(fontSize: 14, color: Colors.grey[700]),
           ),
         ),
         Text(
           '$lowTemp',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey[600],
-          ),
+          style: TextStyle(fontSize: 14, color: Colors.grey[600]),
         ),
         const SizedBox(width: 8),
         Expanded(
@@ -313,10 +248,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
             height: 6,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  Colors.yellow[300]!,
-                  Colors.orange[400]!,
-                ],
+                colors: [Colors.yellow[300]!, Colors.orange[400]!],
               ),
               borderRadius: BorderRadius.circular(3),
             ),

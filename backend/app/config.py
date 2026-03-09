@@ -3,7 +3,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(BASE_DIR / "DB_")
+load_dotenv(BASE_DIR / ".env")
+
 
 class Config:
     DB_HOST = os.getenv("DB_HOST")
@@ -21,3 +22,6 @@ class Config:
     SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret")
     JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", SECRET_KEY)
     JWT_EXPIRY_HOURS = float(os.getenv("JWT_EXPIRY_HOURS", 12))
+
+print("DB_HOST:", Config.DB_HOST)
+print("DB_USER:", Config.DB_USER)

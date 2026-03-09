@@ -6,11 +6,7 @@ class SuccessSnackbar {
       SnackBar(
         content: Row(
           children: [
-            const Icon(
-              Icons.check_circle,
-              color: Colors.white,
-              size: 24,
-            ),
+            const Icon(Icons.check_circle, color: Colors.white, size: 24),
             const SizedBox(width: 12),
             Expanded(
               child: Text(
@@ -27,9 +23,7 @@ class SuccessSnackbar {
         backgroundColor: Colors.green,
         behavior: SnackBarBehavior.floating,
         margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         duration: const Duration(seconds: 3),
         elevation: 6,
       ),

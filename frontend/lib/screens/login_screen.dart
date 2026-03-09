@@ -46,10 +46,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (result['success'] == true) {
       SuccessSnackbar.show(context, 'Đăng nhập thành công!');
-      
+
       // Navigate to homepage after a short delay
       await Future.delayed(const Duration(milliseconds: 500));
-      
+
       if (mounted) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (_) => const HomepageScreen()),
@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 40),
-                
+
                 // Logo and greeting
                 Center(
                   child: Column(
@@ -124,17 +124,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 8),
                       Text(
                         'Đăng nhập để tiếp tục hành trình của bạn',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey[600],
-                        ),
+                        style: TextStyle(fontSize: 14, color: Colors.grey[600]),
                         textAlign: TextAlign.center,
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 40),
-                
+
                 // Phone/Email input
                 TextFormField(
                   controller: _phoneController,
@@ -157,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
                 const SizedBox(height: 16),
-                
+
                 // Password input
                 TextFormField(
                   controller: _passwordController,
@@ -168,7 +165,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     prefixIcon: const Icon(Icons.lock_outline),
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                        _obscurePassword
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
                       ),
                       onPressed: () {
                         setState(() {
@@ -190,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
                 const SizedBox(height: 16),
-                
+
                 // Remember me and forgot password
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -220,16 +219,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: const Text(
                         'Quên mật khẩu?',
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 14,
-                        ),
+                        style: TextStyle(color: Colors.blue, fontSize: 14),
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 24),
-                
+
                 // Login button
                 ElevatedButton(
                   onPressed: _isLoading ? null : _handleLogin,
@@ -248,7 +244,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: 20,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.white,
+                            ),
                           ),
                         )
                       : const Text(
@@ -260,7 +258,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                 ),
                 const SizedBox(height: 16),
-                
+
                 // OTP login button
                 TextButton.icon(
                   onPressed: () {
@@ -269,24 +267,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   icon: const Icon(Icons.refresh, size: 18),
                   label: const Text(
                     'Đăng nhập nhanh bằng OTP',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(color: Colors.blue, fontSize: 14),
                   ),
                 ),
                 const SizedBox(height: 32),
-                
+
                 // Register prompt
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'Bạn chưa có tài khoản? ',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[600],
-                      ),
+                      style: TextStyle(fontSize: 14, color: Colors.grey[600]),
                     ),
                     GestureDetector(
                       onTap: () {

@@ -9,6 +9,7 @@
       "dependencies": [
         "cupertino_icons",
         "flutter",
+        "flutter_dotenv",
         "fluttertoast",
         "geolocator",
         "http",
@@ -55,6 +56,13 @@
         "geolocator_platform_interface",
         "geolocator_web",
         "geolocator_windows"
+      ]
+    },
+    {
+      "name": "flutter_dotenv",
+      "version": "5.2.1",
+      "dependencies": [
+        "flutter"
       ]
     },
     {

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'services/api_service.dart';
 import 'screens/login_screen.dart';
 import 'screens/homepage_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
@@ -54,7 +57,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
   Future<void> _checkAuthStatus() async {
     try {
       final token = await ApiService.getToken();
-      
+
       if (token == null || token.isEmpty) {
         setState(() {
           _isAuthenticated = false;
@@ -65,12 +68,12 @@ class _AuthWrapperState extends State<AuthWrapper> {
 
       // Verify token with backend
       final result = await ApiService.getMe();
-      
+
       setState(() {
         _isAuthenticated = result['success'] == true;
         _isLoading = false;
       });
-      
+
       // If token is invalid, remove it
       if (result['success'] == false) {
         await ApiService.removeToken();
@@ -86,15 +89,9 @@ class _AuthWrapperState extends State<AuthWrapper> {
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
-    return _isAuthenticated 
-        ? const HomepageScreen() 
-        : const LoginScreen();
+    return _isAuthenticated ? const HomepageScreen() : const LoginScreen();
   }
 }

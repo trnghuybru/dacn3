@@ -50,8 +50,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final result = await ApiService.register(
       phone: _phoneController.text.trim(),
       password: _passwordController.text,
-      fullName: _fullNameController.text.trim().isEmpty 
-          ? null 
+      fullName: _fullNameController.text.trim().isEmpty
+          ? null
           : _fullNameController.text.trim(),
     );
 
@@ -61,10 +61,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     if (result['success'] == true) {
       SuccessSnackbar.show(context, 'Đăng ký thành công!');
-      
+
       // Navigate to login screen after a short delay
       await Future.delayed(const Duration(milliseconds: 500));
-      
+
       if (mounted) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (_) => const LoginScreen()),
@@ -118,7 +118,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 40),
-                
+
                 // Phone number input
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,7 +154,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                
+
                 // Full name input
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,7 +183,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                
+
                 // Password input
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -205,7 +205,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         prefixIcon: const Icon(Icons.lock_outline),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                            _obscurePassword
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
                           ),
                           onPressed: () {
                             setState(() {
@@ -252,7 +254,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                
+
                 // Confirm password input
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -274,11 +276,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         prefixIcon: const Icon(Icons.lock_outline),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _obscureConfirmPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                            _obscureConfirmPassword
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
                           ),
                           onPressed: () {
                             setState(() {
-                              _obscureConfirmPassword = !_obscureConfirmPassword;
+                              _obscureConfirmPassword =
+                                  !_obscureConfirmPassword;
                             });
                           },
                         ),
@@ -321,17 +326,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ],
                 ),
                 const SizedBox(height: 24),
-                
+
                 // Terms and conditions
                 RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey[600],
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                     children: [
-                      const TextSpan(text: 'Bằng cách đăng ký, bạn đồng ý với '),
+                      const TextSpan(
+                        text: 'Bằng cách đăng ký, bạn đồng ý với ',
+                      ),
                       WidgetSpan(
                         child: GestureDetector(
                           onTap: () {
@@ -366,7 +370,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 const SizedBox(height: 32),
-                
+
                 // Register button
                 ElevatedButton(
                   onPressed: _isLoading ? null : _handleRegister,
@@ -385,7 +389,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           width: 20,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.white,
+                            ),
                           ),
                         )
                       : const Text(

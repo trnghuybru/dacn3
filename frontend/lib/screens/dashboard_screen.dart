@@ -105,10 +105,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
         return null; // Fallback to default coordinates
       }
     }
-    
+
     if (permission == LocationPermission.deniedForever) {
       return null; // Fallback to default coordinates
-    } 
+    }
 
     return await Geolocator.getCurrentPosition();
   }
@@ -134,7 +134,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           if (forecastResult['success'] == true) {
             _forecast = forecastResult['data']['list'];
           }
-          
+
           _isLoading = false;
         });
       }
@@ -208,10 +208,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [
-                    Colors.blue[400]!,
-                    Colors.purple[400]!,
-                  ],
+                  colors: [Colors.blue[400]!, Colors.purple[400]!],
                 ),
                 borderRadius: BorderRadius.circular(20),
               ),
@@ -228,21 +225,35 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               style: const TextStyle(color: Colors.white),
                               decoration: InputDecoration(
                                 hintText: 'Tìm thành phố...',
-                                hintStyle: const TextStyle(color: Colors.white70),
-                                prefixIcon: const Icon(Icons.search, color: Colors.white),
+                                hintStyle: const TextStyle(
+                                  color: Colors.white70,
+                                ),
+                                prefixIcon: const Icon(
+                                  Icons.search,
+                                  color: Colors.white,
+                                ),
                                 suffixIcon: IconButton(
-                                  icon: const Icon(Icons.close, color: Colors.white),
-                                  onPressed: () => setState(() => _isSearching = false),
+                                  icon: const Icon(
+                                    Icons.close,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: () =>
+                                      setState(() => _isSearching = false),
                                 ),
                                 border: InputBorder.none,
                               ),
                               onChanged: _handleSearch,
                             ),
                             if (_isSearchingLocation)
-                              const LinearProgressIndicator(backgroundColor: Colors.transparent, color: Colors.white),
+                              const LinearProgressIndicator(
+                                backgroundColor: Colors.transparent,
+                                color: Colors.white,
+                              ),
                             if (_searchResults.isNotEmpty)
                               Container(
-                                constraints: const BoxConstraints(maxHeight: 200),
+                                constraints: const BoxConstraints(
+                                  maxHeight: 200,
+                                ),
                                 decoration: BoxDecoration(
                                   color: Colors.white.withOpacity(0.2),
                                   borderRadius: BorderRadius.circular(10),
@@ -255,12 +266,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     return ListTile(
                                       title: Text(
                                         '${res['name']}, ${res['country']}',
-                                        style: const TextStyle(color: Colors.white),
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                        ),
                                       ),
                                       subtitle: res['state'] != null
-                                          ? Text(res['state'], style: const TextStyle(color: Colors.white70))
+                                          ? Text(
+                                              res['state'],
+                                              style: const TextStyle(
+                                                color: Colors.white70,
+                                              ),
+                                            )
                                           : null,
-                                      onTap: () => _selectLocation(res['lat'], res['lon']),
+                                      onTap: () => _selectLocation(
+                                        res['lat'],
+                                        res['lon'],
+                                      ),
                                     );
                                   },
                                 ),
@@ -271,7 +292,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           onTap: () => setState(() => _isSearching = true),
                           child: Row(
                             children: [
-                              const Icon(Icons.location_on, color: Colors.white, size: 18),
+                              const Icon(
+                                Icons.location_on,
+                                color: Colors.white,
+                                size: 18,
+                              ),
                               const SizedBox(width: 4),
                               Text(
                                 weather['name'] ?? 'Vị trí hiện tại',
@@ -282,12 +307,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 ),
                               ),
                               const SizedBox(width: 8),
-                              const Icon(Icons.edit, color: Colors.white70, size: 14),
+                              const Icon(
+                                Icons.edit,
+                                color: Colors.white70,
+                                size: 14,
+                              ),
                             ],
                           ),
                         ),
                   const SizedBox(height: 16),
-                  
+
                   // Main Temperature and Condition
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -307,7 +336,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           const SizedBox(height: 4),
                           Row(
                             children: [
-                              Icon(_getWeatherIcon(weatherDesc['main']), color: Colors.white70, size: 16),
+                              Icon(
+                                _getWeatherIcon(weatherDesc['main']),
+                                color: Colors.white70,
+                                size: 16,
+                              ),
                               const SizedBox(width: 4),
                               Text(
                                 weatherDesc['description'] ?? '',
@@ -336,7 +369,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ],
                   ),
                   const SizedBox(height: 24),
-                  
+
                   // Metrics Row
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -349,12 +382,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       _buildMetric(
                         icon: Icons.air,
                         label: 'Gió',
-                        value: '${(wind['speed'] as num).toStringAsFixed(1)} m/s',
+                        value:
+                            '${(wind['speed'] as num).toStringAsFixed(1)} m/s',
                       ),
                       _buildMetric(
                         icon: Icons.visibility,
                         label: 'Tầm nhìn',
-                        value: '${(weather['visibility'] / 1000).toStringAsFixed(1)} km',
+                        value:
+                            '${(weather['visibility'] / 1000).toStringAsFixed(1)} km',
                       ),
                       _buildMetric(
                         icon: Icons.speed,
@@ -367,7 +402,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Hourly Forecast Card
             if (_forecast != null)
               Container(
@@ -402,11 +437,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         itemCount: 8, // Show next 24 hours (8 intervals of 3h)
                         itemBuilder: (context, index) {
                           final item = _forecast![index];
-                          final time = DateTime.fromMillisecondsSinceEpoch(item['dt'] * 1000);
+                          final time = DateTime.fromMillisecondsSinceEpoch(
+                            item['dt'] * 1000,
+                          );
                           final hourStr = '${time.hour}:00';
-                          final temp = '${(item['main']['temp'] as num).round()}°';
+                          final temp =
+                              '${(item['main']['temp'] as num).round()}°';
                           final mainCond = item['weather'][0]['main'];
-                          final rain = item['pop'] as num; // Probability of precipitation
+                          final rain =
+                              item['pop']
+                                  as num; // Probability of precipitation
 
                           return _buildHourlyItem(
                             hourStr,
@@ -422,7 +462,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ),
             const SizedBox(height: 16),
-            
+
             // Daily Forecast Card
             if (_forecast != null)
               Container(
@@ -465,11 +505,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
   List<Widget> _buildDailyForecastList() {
     final List<Widget> widgets = [];
     final Set<String> processedDays = {};
-    
+
     for (var item in _forecast!) {
       final date = DateTime.fromMillisecondsSinceEpoch(item['dt'] * 1000);
       final dayStr = _getDayName(date.weekday);
-      
+
       // Basic logic: take the entry nearest to 12:00 PM for each day
       if (!processedDays.contains(dayStr) && widgets.length < 5) {
         processedDays.add(dayStr);
@@ -490,14 +530,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
   String _getDayName(int day) {
     if (DateTime.now().weekday == day) return 'Hôm nay';
     switch (day) {
-      case 1: return 'Thứ 2';
-      case 2: return 'Thứ 3';
-      case 3: return 'Thứ 4';
-      case 4: return 'Thứ 5';
-      case 5: return 'Thứ 6';
-      case 6: return 'Thứ 7';
-      case 7: return 'Chủ Nhật';
-      default: return '';
+      case 1:
+        return 'Thứ 2';
+      case 2:
+        return 'Thứ 3';
+      case 3:
+        return 'Thứ 4';
+      case 4:
+        return 'Thứ 5';
+      case 5:
+        return 'Thứ 6';
+      case 6:
+        return 'Thứ 7';
+      case 7:
+        return 'Chủ Nhật';
+      default:
+        return '';
     }
   }
 
@@ -521,10 +569,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         const SizedBox(height: 2),
         Text(
           label,
-          style: const TextStyle(
-            color: Colors.white70,
-            fontSize: 11,
-          ),
+          style: const TextStyle(color: Colors.white70, fontSize: 11),
         ),
       ],
     );
@@ -616,18 +661,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
         Expanded(
           child: Text(
             condition[0].toUpperCase() + condition.substring(1),
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey[700],
-            ),
+            style: TextStyle(fontSize: 14, color: Colors.grey[700]),
           ),
         ),
         Text(
           '$lowTemp°',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey[600],
-          ),
+          style: TextStyle(fontSize: 14, color: Colors.grey[600]),
         ),
         const SizedBox(width: 8),
         Expanded(
@@ -635,10 +674,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             height: 6,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  Colors.yellow[300]!,
-                  Colors.orange[400]!,
-                ],
+                colors: [Colors.yellow[300]!, Colors.orange[400]!],
               ),
               borderRadius: BorderRadius.circular(3),
             ),
