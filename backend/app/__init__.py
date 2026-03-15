@@ -8,7 +8,10 @@ def create_app():
 
     from .routes import main
     from .auth_routes import auth
+    from .webhook_routes import webhook
+    
     app.register_blueprint(main)
     app.register_blueprint(auth)
+    app.register_blueprint(webhook)
 
     return app

@@ -22,7 +22,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
     _buildHomeContent(),
     const MapScreen(),
     const NewsScreen(),
-    const SosScreen(),
+    const SOSScreen(),
     const ProfileScreen(),
   ];
 
